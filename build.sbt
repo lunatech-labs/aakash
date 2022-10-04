@@ -38,7 +38,8 @@ lazy val server = (project in file("server"))
       "com.typesafe.akka" %% "akka-actor-typed" % "2.6.15",
       "io.circe"          %% "circe-core"       % "0.13.0",
       "io.circe"          %% "circe-generic"    % "0.13.0",
-      "io.circe"          %% "circe-parser"     % "0.13.0"
+      "io.circe"          %% "circe-parser"     % "0.13.0",
+      "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % "8.4.2"
     )
   )
 

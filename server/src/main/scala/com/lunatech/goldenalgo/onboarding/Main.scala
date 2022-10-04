@@ -5,6 +5,8 @@
 package com.lunatech.goldenalgo.onboarding
 
 import akka.actor.ActorSystem
+import com.lunatech.goldenalgo.onboarding.utils.DbSupport
+
 import scala.concurrent.ExecutionContext
 
 object Main {
@@ -14,6 +16,7 @@ object Main {
     implicit val ec: ExecutionContext = system.dispatcher
 
     val controller = new Controller()
+    DbSupport.createDatabase("recipe")
 
     new WebServer(controller)
       .bind()

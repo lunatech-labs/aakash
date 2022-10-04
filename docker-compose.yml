@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.1
+    environment:
+      discovery.type: single-node
+      network.host: 0.0.0.0
+      path.repo: /tmp/elastic4s
+      xpack.security.enabled: "true"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - "./server/src/main/resources/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml"
