@@ -75,5 +75,22 @@ object RecipeDao {
     }
   }
 
+  def deleteRecipe(id: String) ={
+
+    DbSupport.client.execute{
+      deleteByQuery("recipe",matchQuery("id", id))
+    }.map{ response =>
+      response.result match {
+        case Right(value) => "Recipe Not Deleted."
+        case Left(value) => value.deleted match {
+          case 1 => "Recipe Deleted."
+          case _ => "Recipe Not Deleted."
+        }
+      }
+    }
+
+
+  }
+
 
 }

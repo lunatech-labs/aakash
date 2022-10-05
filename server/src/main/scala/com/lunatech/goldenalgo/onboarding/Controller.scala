@@ -48,6 +48,15 @@ class Controller()(implicit val ec: ExecutionContext) {
             }
           )
         }
+      }~delete{
+        parameter("id".as[String]){ id =>
+          complete(
+            RecipeDao.deleteRecipe(id).map { returnVal =>
+              HttpResponse(StatusCodes.OK, entity = HttpEntity(returnVal))
+            }
+          )
+
+        }
       }
     }
 
