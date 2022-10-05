@@ -39,6 +39,7 @@ lazy val server = (project in file("server"))
       "io.circe"          %% "circe-core"       % "0.13.0",
       "io.circe"          %% "circe-generic"    % "0.13.0",
       "io.circe"          %% "circe-parser"     % "0.13.0",
+      "com.sksamuel.elastic4s" %% "elastic4s-core"          % "7.9.2",
       "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % "8.4.2"
     )
   )

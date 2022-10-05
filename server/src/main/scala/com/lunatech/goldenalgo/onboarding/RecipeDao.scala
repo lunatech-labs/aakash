@@ -47,11 +47,30 @@ object RecipeDao {
 
     DbSupport.client.execute{
       indexInto("recipe") doc (Recipe(UUID.randomUUID,recipe.name,recipe.ingredients,recipe.instructions ).asJson.noSpaces)
-    }.map { Response =>
-      Response.result.result match {
-        case "created" => "Recipe Created"
-        case "updated" => "Recipe Created"
-        case _ => "Could not persist Recipe"
+    }.map { response =>
+      response.result.result match {
+        case "created" => "Recipe Created."
+        case "updated" => "Recipe Created."
+        case _ => "Could not persist Recipe."
+      }
+    }
+  }
+
+  def updateRecipe(recipe: Recipe)={
+
+    DbSupport.client.execute{
+      updateByQuerySync("recipe", matchQuery("id",recipe.id) )
+        .script(
+          s"""
+             |ctx._source.name = '${recipe.name}';
+             |ctx._source.ingredients = ['${recipe.ingredients.mkString("','")}'];
+             |ctx._source.instructions = ['${recipe.instructions.mkString("','")}'];
+             |""".stripMargin
+        )
+    }.map{ response =>
+      response.result.updated match {
+        case 1 => "Recipe Updated."
+        case _ => "Recipe Not Updated"
       }
     }
   }

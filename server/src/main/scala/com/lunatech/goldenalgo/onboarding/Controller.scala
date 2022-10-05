@@ -34,14 +34,19 @@ class Controller()(implicit val ec: ExecutionContext) {
         )
       }~post{
         entity(as[RecipeInsertEntity]){ recipe =>
-
-
           complete(
             RecipeDao.insertRecipe(recipe) map { returnVal =>
               HttpResponse(StatusCodes.OK, entity = HttpEntity(returnVal))
             }
           )
-
+        }
+      }~put{
+        entity(as[Recipe]){ recipe =>
+          complete(
+            RecipeDao.updateRecipe(recipe).map{ returnVal =>
+              HttpResponse(StatusCodes.OK, entity = HttpEntity(returnVal))
+            }
+          )
         }
       }
     }
